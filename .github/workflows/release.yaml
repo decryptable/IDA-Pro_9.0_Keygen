@@ -98,7 +98,7 @@ jobs:
           make_latest: true
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
-          files: ./artifacts/**/*
+          files: ./artifacts/**/*IDA_Keygen*
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
