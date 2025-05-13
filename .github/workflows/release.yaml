@@ -80,8 +80,7 @@ jobs:
         with:
           name: ${{ runner.os }}-IDA_Keygen-v${{ steps.get_version.outputs.version }}
           path: |
-            build/*.exe
-            build/*.bin
+            build/*
           include-hidden-files: true
 
   release:
