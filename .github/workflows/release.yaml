@@ -57,7 +57,6 @@ jobs:
           script-name: IDA_Keygen.py
           mode: onefile
           enable-plugins: tk-inter
-          include-data-files: icon.png=.,icon.ico=.
           enable-console: false
           product-name: IDA Keygen
           file-description: Keygen for IDA Pro
