@@ -60,6 +60,7 @@ jobs:
           enable-console: false
           product-name: IDA Keygen
           file-description: Keygen for IDA Pro
+          output-file: ${{ runner.os }}-IDA_Keygen-v${{ steps.get_version.outputs.version }}
           file-version: ${{ steps.get_version.outputs.version }}
           product-version: ${{ steps.get_version.outputs.version }}
           copyright: decryptable
@@ -81,7 +82,6 @@ jobs:
           path: |
             build/*.exe
             build/*.bin
-            build/*.app/**/*
           include-hidden-files: true
 
   release:
