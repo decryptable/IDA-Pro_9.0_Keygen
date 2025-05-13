@@ -55,9 +55,9 @@ jobs:
         with:
           nuitka-version: main
           script-name: IDA_Keygen.py
-          mode: app
+          mode: onefile
           enable-plugins: tk-inter
-          disable-console: true
+          include-data-files: icon.png=.,icon.ico=.
           enable-console: false
           product-name: IDA Keygen
           file-description: Keygen for IDA Pro
