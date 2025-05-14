@@ -120,10 +120,11 @@ def generate_patched_dll(filename, status_text):
         data = data.replace(
             bytes.fromhex("EDFD425CF978"), bytes.fromhex("EDFD42CBF978")
         )
-        patched_filename = f"{filename}.patched"
-        with open(patched_filename, "wb") as f:
+        backup_filename = f"{filename}.bak"
+        os.rename(filename, backup_filename)
+        with open(filename, "wb") as f:
             f.write(data)
-        status_text.insert("end", f"Generated modulus patch to {patched_filename}!\n")
+        status_text.insert("end", f"Patched {filename} successfully! Original file backed up as {backup_filename}\n")
 
 class KeygenApp:
     def __init__(self, root):
@@ -256,23 +257,28 @@ class KeygenApp:
     def check_directory(self):
         folder = self.entry_folder.get()
         ida_exe = "ida.exe" if platform.system() == "Windows" else "ida"
+        ida64_exe = "ida64.exe" if platform.system() == "Windows" else "ida64"
         ida_path = os.path.join(folder, ida_exe)
+        ida64_path = os.path.join(folder, ida64_exe)
 
-        if not os.path.exists(ida_path):
+        if not os.path.exists(ida_path) and not os.path.exists(ida64_path):
             CustomDialog(
                 self.root,
                 "Invalid Directory",
-                f"No '{ida_exe}' found in the specified folder. Please select a valid IDA Pro 9.0 installation folder."
+                f"No '{ida_exe}' or '{ida64_exe}' found in the specified folder. Please select a valid IDA Pro 9.0 installation folder."
             )
             self.disable_inputs()
             return
 
-        version = self.get_file_version(ida_path)
-        if not version or "9.0" not in version:
+        version_ida = self.get_file_version(ida_path) if os.path.exists(ida_path) else None
+        version_ida64 = self.get_file_version(ida64_path) if os.path.exists(ida64_path) else None
+
+        if (version_ida and "9.0" not in version_ida) and (version_ida64 and "9.0" not in version_ida64):
             CustomDialog(
                 self.root,
                 "Invalid Version",
-                f"The '{ida_exe}' file does not have a valid version (9.0 required). Found version: {version or 'Unknown'}."
+                f"Neither '{ida_exe}' nor '{ida64_exe}' has a valid version (9.0 required). "
+                f"Found versions: {version_ida or 'Unknown'} (ida), {version_ida64 or 'Unknown'} (ida64)."
             )
             self.disable_inputs()
             return
