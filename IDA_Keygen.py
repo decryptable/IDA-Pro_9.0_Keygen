@@ -9,6 +9,10 @@ from tkinter import PhotoImage, filedialog
 
 import customtkinter as ctk
 
+now = datetime.now()
+now_str = now.strftime("%Y-%m-%d %H:%M:%S")
+end_str = (now + timedelta(days=365 * 10)).strftime("%Y-%m-%d %H:%M:%S")
+
 try:
     import win32api
 except ImportError:
@@ -92,16 +96,33 @@ def sign_hexlic(payload: dict) -> str:
 def add_every_addon(license):
     addons = [
         "HEXX86", "HEXX64", "HEXARM", "HEXARM64", "HEXMIPS", "HEXMIPS64",
-        "HEXPPC", "HEXPPC64", "HEXRV64", "HEXARC", "HEXARC64"
+        "HEXPPC", "HEXPPC64", "HEXRV64", "HEXARC", "HEXARC64",
+        
+        # Probably cloud?
+        "HEXCX86",
+        "HEXCX64",
+        "HEXCARM",
+        "HEXCARM64",
+        "HEXCMIPS",
+        "HEXCMIPS64",
+        "HEXCPPC",
+        "HEXCPPC64",
+        "HEXCRV",
+        "HEXCRV64",
+        "HEXCARC",
+        "HEXCARC64",
+        "LUMINA",
+        "TEAMS"
     ]
+
     for i, addon in enumerate(addons, 1):
         license["payload"]["licenses"][0]["add_ons"].append(
             {
-                "id": f"48-1337-DEAD-{i:02}",
+                "id": f"48-2137-ACAB-{i:02}",
                 "code": addon,
                 "owner": license["payload"]["licenses"][0]["id"],
-                "start_date": "2024-08-10 00:00:00",
-                "end_date": "2033-12-31 23:59:59",
+                "start_date": now_str,
+                "end_date": end_str,
             }
         )
 
@@ -319,10 +340,6 @@ class KeygenApp:
 
     def generate_license(self):
         try:
-            now = datetime.now()
-            now_str = now.strftime("%Y-%m-%d %H:%M:%S")
-            end_str = (now + timedelta(days=365 * 10)).strftime("%Y-%m-%d %H:%M:%S")
-
             license = {
                 "header": {"version": 1},
                 "payload": {
@@ -335,12 +352,12 @@ class KeygenApp:
                             "id": "48-2137-ACAB-99",
                             "license_type": "named",
                             "product": "IDA",
-                            "seats": 1,
+                            "seats": 100,
                             "start_date": now_str,
                             "end_date": end_str,
                             "issued_on": now_str,
-                            "owner": "",
-                            "product_id": "IDAPRO",
+                            "owner": self.entry_email.get(),
+                            "product_id": "IDA",
                             "add_ons": [],
                             "features": [],
                         }
