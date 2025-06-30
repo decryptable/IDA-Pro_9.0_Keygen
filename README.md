@@ -179,7 +179,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Contact
 
 - **Author**: decryptable
-- **Contact**: [Telegram](https://t.me/hexac)
+- **Contact**: [Telegram](https://t.me/@nolan1337)
 - **Repository**: [https://github.com/decryptable/IDA-Pro_9.0_Keygen](https://github.com/decryptable/IDA-Pro_9.0_Keygen)
 
 For issues or feature requests, please open an issue on GitHub.
